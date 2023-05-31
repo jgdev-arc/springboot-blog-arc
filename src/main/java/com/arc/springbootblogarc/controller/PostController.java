@@ -23,4 +23,11 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "/admin/posts";
     }
+
+    @GetMapping("admin/posts/newpost")
+    public String newPostForm(Model model) {
+        PostDTO postDTO = new PostDTO();
+        model.addAttribute("post", postDTO);
+        return "/admin/create_post";
+    }
 }
