@@ -27,6 +27,8 @@
                             name="title"
                             th:field="*{title}"
                         />
+                        <p th:if="${#fields.hasErrors('title')}" class="text-danger"
+                        th:errors="*{title}"></p>
                     </div>
 
                     <div class="mb-3">
@@ -41,6 +43,8 @@
                         >
 
                         </textarea>
+                        <p th:if="${#fields.hasErrors('shortDescription')}" class="text-danger"
+                           th:errors="*{shortDescription}"></p>
                     </div>
 
                     <div class="mb-3">
@@ -55,15 +59,29 @@
                         >
 
                         </textarea>
+                        <p th:if="${#fields.hasErrors('content')}" class="text-danger"
+                           th:errors="*{content}"></p>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 <div th:replace="admin/footer :: footer"></div>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+<script>
+                        ClassicEditor
+                                .create( document.querySelector( '#content' ) )
+                                .then( editor => {
+                                        console.log( editor );
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
+                </script>
 </body>
 </html>
