@@ -3,6 +3,8 @@ package com.arc.springbootblogarc.mapper;
 import com.arc.springbootblogarc.dto.PostDTO;
 import com.arc.springbootblogarc.entity.Post;
 
+import java.util.stream.Collectors;
+
 public class PostMapper {
 
     public static PostDTO mapToPostDTO(Post post) {
@@ -14,6 +16,9 @@ public class PostMapper {
                 .shortDescription(post.getShortDescription())
                 .createdOn(post.getCreatedOn())
                 .updatedOn(post.getUpdatedOn())
+                .comments(post.getComments().stream()
+                        .map(CommentMapper::mapToCommentDTO)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 

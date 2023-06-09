@@ -1,5 +1,6 @@
 package com.arc.springbootblogarc.controller;
 
+import com.arc.springbootblogarc.dto.CommentDTO;
 import com.arc.springbootblogarc.dto.PostDTO;
 import com.arc.springbootblogarc.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class BlogController {
                             Model model) {
         PostDTO post = postService.findPostByUrl(postUrl);
         model.addAttribute("post", post);
+
+        CommentDTO commentDTO = new CommentDTO();
+        model.addAttribute("comment", commentDTO);
+
         return "blog/blog_post";
     }
 
