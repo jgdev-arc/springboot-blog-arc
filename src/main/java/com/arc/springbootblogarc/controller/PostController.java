@@ -1,6 +1,8 @@
 package com.arc.springbootblogarc.controller;
 
+import com.arc.springbootblogarc.dto.CommentDTO;
 import com.arc.springbootblogarc.dto.PostDTO;
+import com.arc.springbootblogarc.service.CommentService;
 import com.arc.springbootblogarc.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,11 @@ import java.util.List;
 public class PostController {
 
     private PostService postService;
+    private CommentService commentService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/admin/posts")
@@ -97,6 +101,19 @@ public class PostController {
         List<PostDTO> posts = postService.searchPosts(query);
         model.addAttribute("posts", posts);
         return "admin/posts";
+    }
+
+    @GetMapping("/admin/posts/comments")
+    public String postComments(Model model) {
+        List<CommentDTO> comments = commentService.findAllComments();
+        model.addAttribute("comments", comments);
+        return "admin/comments";
+    }
+
+    @GetMapping("/admin/posts/comments/{commentId}")
+    public String deleteComment(@PathVariable("commentId") Long commentId) {
+        commentService.deleteComment(commentId);
+        return "redirect:/admin/posts/comments";
     }
 
 }
